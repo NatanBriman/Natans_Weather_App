@@ -1,0 +1,11 @@
+{
+  "editor.tabSize": 2,
+  "files.autoSave": "onWindowChange",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "editor.fontSize": 18,
+  "editor.fontFamily": "Consolas, 'Courier New', monospace",
+  "editor.linkedEditing": true
+}
