@@ -1,7 +1,9 @@
+import NavBar from './Components/NavBar';
+
 export const App = () => {
   return (
     <>
-      <h1>Weather App</h1>
+      <NavBar title="Natan's Weather App" />
     </>
   );
 };
