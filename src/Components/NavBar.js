@@ -1,16 +1,30 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Form, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { CloudSunFill } from 'react-bootstrap-icons';
 
-export default function NavBar({ title }) {
+export default function NavBar({ cities, setCity, title }) {
+  const handleSelect = ({ target: { value } }) => setCity(value);
+
   return (
-    <Navbar bg='primary' expand='lg' sticky='top'>
-      <Navbar.Brand className='ms-2' href='/'>
-        <strong style={{ fontFamily: 'Helvetica' }}>
-          {title} <CloudSunFill />
-        </strong>
-      </Navbar.Brand>
+    <Navbar bg='primary'>
+      <Row>
+        <Col>
+          <Navbar.Brand className='ms-2' href='/'>
+            <strong style={{ fontFamily: 'Helvetica' }}>
+              {title} <CloudSunFill />
+            </strong>
+          </Navbar.Brand>
+        </Col>
+
+        <Col>
+          <Form.Select onChange={handleSelect}>
+            {cities.map((city) => (
+              <option>{city}</option>
+            ))}
+          </Form.Select>
+        </Col>
+      </Row>
     </Navbar>
   );
 }
