@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import WeatherCard from './WeatherCard';
 import { Col, Container, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import api from '../Api/api';
 
-const CURRENT_WEATHER = {
-  day: {
-    avgtemp_c: 27.8,
-    condition: {
-      icon: '//cdn.weatherapi.com/weather/64x64/day/116.png',
-    },
-  },
-  date: '2022-09-28',
-};
+const sortByDate = (a, b) => new Date(b.date) - new Date(a.date);
 
-export default function ForecastTable({ daysAmount }) {
+export default function ForecastTable({ city, daysAmount }) {
+  const [forecast, setForecast] = useState([]);
+
+  useEffect(() => {
+    const getForecast = async () => {
+      const {
+        data: {
+          forecast: { forecastday: forecastList },
+        },
+      } = await api.forecastInCityForDays(city, daysAmount);
+
+      setForecast(forecastList);
+    };
+
+    getForecast();
+  }, [city, daysAmount]);
+
   return (
-    <Container className='mt-2'>
+    <Container className='mt-2 mb-2'>
       <Row>
-        {Array(daysAmount).fill(
-          <Col>
-            <WeatherCard weather={CURRENT_WEATHER} />
+        {forecast.sort(sortByDate).map((weather) => (
+          <Col key={weather.date}>
+            <WeatherCard weather={weather} />
           </Col>
-        )}
+        ))}
       </Row>
     </Container>
   );

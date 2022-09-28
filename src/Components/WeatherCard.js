@@ -9,11 +9,11 @@ export default function WeatherCard({ weather }) {
   return (
     <Card style={{ height: '80vh' }} className='text-center'>
       <Col>
-        <h2>
+        <h3>
           <strong style={{ textDecoration: 'underline' }}>
             {formatDate(new Date(weather.date))}
           </strong>
-        </h2>
+        </h3>
       </Col>
 
       <Col>
