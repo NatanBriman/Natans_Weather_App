@@ -3,6 +3,8 @@ import { Card } from 'react-bootstrap';
 import ForecastTable from './Components/ForecastTable';
 import NavBar from './Components/NavBar';
 
+const DAYS_TO_SHOW = 7;
+
 const CITIES = [
   'Haifa',
   'Paris',
@@ -11,7 +13,6 @@ const CITIES = [
   'Los Angeles',
   'Moscow',
 ];
-const DAYS_TO_SHOW = 7;
 
 export const App = () => {
   const [city, setCity] = useState(CITIES[0]);

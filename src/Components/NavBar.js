@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { CloudSunFill } from 'react-bootstrap-icons';
 
 export default function NavBar({ cities, setCity, title }) {
-  const handleSelect = ({ target: { value } }) => setCity(value);
+  const handleCitySelect = ({ target: { value } }) => setCity(value);
 
   return (
     <Navbar bg='primary'>
@@ -18,7 +18,7 @@ export default function NavBar({ cities, setCity, title }) {
         </Col>
 
         <Col>
-          <Form.Select onChange={handleSelect}>
+          <Form.Select onChange={handleCitySelect}>
             {cities.map((city) => (
               <option>{city}</option>
             ))}
