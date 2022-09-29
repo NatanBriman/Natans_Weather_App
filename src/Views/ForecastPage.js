@@ -6,17 +6,6 @@ import api from '../Api/api';
 
 const DAYS_TO_SHOW = 5;
 
-const TEMP_WEATHER = {
-  date: new Date(),
-  day: {
-    avgtemp_c: 29,
-    condition: { icon: '//cdn.weatherapi.com/weather/64x64/night/116.png' },
-    maxwind_kph: 14.5,
-    avghumidity: 71,
-    uv: 7,
-  },
-};
-
 const getForecast = async (city, daysAmount, setForecast) => {
   const {
     data: {
@@ -29,14 +18,14 @@ const getForecast = async (city, daysAmount, setForecast) => {
 
 export const ForecastPage = ({ city }) => {
   const [forecast, setForecast] = useState([]);
-  const [selectedWeather, setSelectedWeather] = useState(TEMP_WEATHER);
+  const [selectedWeather, setSelectedWeather] = useState({});
 
   useEffect(() => {
     getForecast(city, DAYS_TO_SHOW, setForecast);
   }, [city]);
 
   useEffect(() => {
-    if (forecast.length > 0) setSelectedWeather(forecast.reverse()[0]);
+    if (forecast.length > 0) setSelectedWeather(forecast[0]);
   }, [forecast]);
 
   return (

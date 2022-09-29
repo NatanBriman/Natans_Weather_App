@@ -11,12 +11,14 @@ const CITIES = [
   'Moscow',
 ];
 
+const APP_TITLE = 'מזג אוויר';
+
 export const App = () => {
   const [city, setCity] = useState(CITIES[0]);
 
   return (
     <div>
-      <NavBar cities={CITIES} setCity={setCity} title="Natan's Weather App" />
+      <NavBar cities={CITIES} setCity={setCity} title={APP_TITLE} />
       <ForecastPage city={city} />
     </div>
   );
