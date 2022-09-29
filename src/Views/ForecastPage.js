@@ -11,9 +11,9 @@ const getForecast = async (city, daysAmount, setForecast) => {
     data: {
       forecast: { forecastday },
     },
-  } = await api.forecastInCityForDays(city, daysAmount + 1);
+  } = await api.forecastInCityForDays(city, daysAmount);
 
-  setForecast(forecastday.slice(1));
+  setForecast(forecastday);
 };
 
 export const ForecastPage = ({ city }) => {
@@ -43,6 +43,7 @@ export const ForecastPage = ({ city }) => {
           <Card bg='light' style={{ height: '100%' }}>
             <ForecastTable
               forecast={forecast}
+              selectedWeather={selectedWeather}
               setSelectedWeather={setSelectedWeather}
             />
           </Card>

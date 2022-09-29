@@ -18,7 +18,7 @@ export default function WeatherCard({ weather }) {
       <Card
         bg='light'
         style={{ height: '100%' }}
-        className='text-center shadow'
+        className='text-center shadow border border-1 border-danger'
       >
         <Card.Header>
           <h3 style={{ textDecoration: 'underline' }}>
@@ -37,7 +37,7 @@ export default function WeatherCard({ weather }) {
               text={'מהירות הרוח'}
             />
             <DetailCard detail={weather.day.avghumidity + '%'} text={'לחות'} />
-            <DetailCard detail={weather.day.uv} text={'אינקדס קרינה'} />
+            <DetailCard detail={weather.day.uv} text={'אינדקס קרינה'} />
           </Container>
         </Card.Body>
 

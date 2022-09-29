@@ -11,15 +11,21 @@ const CITIES = [
   'Moscow',
 ];
 
-const APP_TITLE = 'מזג אוויר';
+const APP_TITLE = 'התחזית של המגניבים';
+const APP_LOGO = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
 
 export const App = () => {
   const [city, setCity] = useState(CITIES[0]);
 
   return (
-    <div>
-      <NavBar cities={CITIES} setCity={setCity} title={APP_TITLE} />
+    <>
+      <NavBar
+        cities={CITIES}
+        setCity={setCity}
+        title={APP_TITLE}
+        logo={APP_LOGO}
+      />
       <ForecastPage city={city} />
-    </div>
+    </>
   );
 };
