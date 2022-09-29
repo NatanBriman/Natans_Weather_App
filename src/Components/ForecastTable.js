@@ -11,9 +11,9 @@ const getForecast = async (city, daysAmount, setForecast) => {
     data: {
       forecast: { forecastday },
     },
-  } = await api.forecastInCityForDays(city, daysAmount);
+  } = await api.forecastInCityForDays(city, daysAmount + 1);
 
-  setForecast(forecastday);
+  setForecast(forecastday.slice(1));
 };
 
 export default function ForecastTable({ city, daysAmount }) {
@@ -25,10 +25,10 @@ export default function ForecastTable({ city, daysAmount }) {
   }, [city]);
 
   return (
-    <Container className='mt-2 mb-2'>
-      <Row>
+    <Container style={{ height: '100%' }} className='mt-2 mb-2'>
+      <Row style={{ height: '100%' }}>
         {sortedForecast.map((weather) => (
-          <Col key={weather.date}>
+          <Col style={{ height: '100%' }} key={weather.date}>
             <WeatherCard weather={weather} />
           </Col>
         ))}

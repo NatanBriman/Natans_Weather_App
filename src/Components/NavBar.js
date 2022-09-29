@@ -7,11 +7,11 @@ export default function NavBar({ cities, setCity, title }) {
   const handleCitySelect = ({ target: { value } }) => setCity(value);
 
   return (
-    <Navbar bg='primary'>
+    <Navbar bg='primary' className='shadow border-bottom border-secondary'>
       <Row>
         <Col>
           <Navbar.Brand className='ms-2' href='/'>
-            <strong style={{ fontFamily: 'Helvetica' }}>
+            <strong>
               {title} <CloudSunFill />
             </strong>
           </Navbar.Brand>
@@ -20,7 +20,7 @@ export default function NavBar({ cities, setCity, title }) {
         <Col>
           <Form.Select onChange={handleCitySelect}>
             {cities.map((city) => (
-              <option>{city}</option>
+              <option key={city}>{city}</option>
             ))}
           </Form.Select>
         </Col>
