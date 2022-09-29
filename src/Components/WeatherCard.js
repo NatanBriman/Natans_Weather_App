@@ -5,11 +5,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 const formatDate = (date) =>
   date.toLocaleString('default', { weekday: 'long' }).slice(4);
 
-export default function WeatherCard({ weather }) {
+export default function WeatherCard({ weather, setSelectedWeather }) {
   const formattedDate = formatDate(new Date(weather.date));
 
   return (
-    <Card bg='light' style={{ height: '100%' }} className='text-center shadow'>
+    <Card
+      onClick={() => setSelectedWeather(weather)}
+      style={{ height: '100%', cursor: 'pointer' }}
+      bg='light'
+      className='text-center shadow'
+    >
       <Card.Header>
         <h3 style={{ textDecoration: 'underline' }}>
           <strong>{formattedDate}</strong>

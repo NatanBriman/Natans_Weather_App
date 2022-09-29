@@ -11,11 +11,7 @@ export default function WeatherCard({ weather }) {
   const formattedDate = formatDate(new Date(weather.date));
 
   return (
-    <Card
-      bg='light'
-      style={{ height: '100%', width: '100%' }}
-      className='text-center shadow'
-    >
+    <Card bg='light' style={{ height: '100%' }} className='text-center shadow'>
       <Card.Header>
         <h3 style={{ textDecoration: 'underline' }}>
           <strong>{formattedDate}</strong>
