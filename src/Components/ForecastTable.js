@@ -1,7 +1,6 @@
 import React from 'react';
 import WeatherCard from './WeatherCard';
 import { Col, Container, Row } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 
 export default function ForecastTable({
   forecast,

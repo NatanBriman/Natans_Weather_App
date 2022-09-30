@@ -13,9 +13,12 @@ const CITIES = [
 
 const APP_TITLE = 'התחזית של המגניבים';
 const APP_LOGO = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
+const INITIAL_DAYS_TO_SHOW = 5;
+const MAX_DAYS_AMOUNT = 7;
 
 export const App = () => {
   const [city, setCity] = useState(CITIES[0]);
+  const [daysAmount, setDaysAmount] = useState(INITIAL_DAYS_TO_SHOW);
 
   return (
     <>
@@ -24,8 +27,11 @@ export const App = () => {
         setCity={setCity}
         title={APP_TITLE}
         logo={APP_LOGO}
+        daysAmount={daysAmount}
+        setDaysAmount={setDaysAmount}
+        MAX_DAYS_AMOUNT={MAX_DAYS_AMOUNT}
       />
-      <ForecastPage city={city} />
+      <ForecastPage city={city} daysAmount={daysAmount} />
     </>
   );
 };

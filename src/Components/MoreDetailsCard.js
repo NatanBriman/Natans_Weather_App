@@ -1,17 +1,20 @@
 import React from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+import { Card, Container } from 'react-bootstrap';
 import DetailCard from './DetailCard';
 
-const formatLongDate = (date) =>
-  `${date.toLocaleString('default', {
-    weekday: 'long',
-  })} ${date.toLocaleDateString()}`;
+const formatLongDate = (date) => {
+  return {
+    weekDay: date.toLocaleString('default', {
+      weekday: 'long',
+    }),
+    date: date.toLocaleDateString(),
+  };
+};
 
 const isEmpty = (object) => Object.keys(object).length === 0;
 
 export default function WeatherCard({ weather }) {
-  const formattedDate = formatLongDate(new Date(weather.date));
+  const { weekDay, date } = formatLongDate(new Date(weather.date));
 
   if (!isEmpty(weather)) {
     return (
@@ -21,9 +24,15 @@ export default function WeatherCard({ weather }) {
         className='text-center shadow border border-1 border-danger'
       >
         <Card.Header>
-          <h3 style={{ textDecoration: 'underline' }}>
-            <strong>{formattedDate}</strong>
-          </h3>
+          <Card.Title>
+            <h3>
+              <strong>{weekDay}</strong>
+            </h3>
+          </Card.Title>
+
+          <Card.Subtitle>
+            <h5>{date}</h5>
+          </Card.Subtitle>
         </Card.Header>
 
         <Card.Body className='d-flex align-items-center'>
@@ -31,7 +40,7 @@ export default function WeatherCard({ weather }) {
             <DetailCard
               detail={
                 <>
-                  <bdi>קמ"ש</bdi> {weather.day.maxwind_kph}
+                  {weather.day.maxwind_kph} <bdi>קמ"ש</bdi>
                 </>
               }
               text={'מהירות הרוח'}

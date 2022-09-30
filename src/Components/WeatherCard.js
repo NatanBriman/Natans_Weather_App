@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 
 const formatDate = (date) =>
   date.toLocaleString('default', { weekday: 'long' }).slice(4);
@@ -18,7 +17,7 @@ export default function WeatherCard({
       style={{ height: '100%', cursor: 'pointer' }}
       bg='light'
       className={
-        'text-center shadow border' +
+        'weather-card text-center border' +
         (selectedWeather === weather
           ? ' border-1 border-danger'
           : ' border border-primary')
