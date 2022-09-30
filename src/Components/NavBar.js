@@ -1,7 +1,8 @@
 import React from 'react';
-import { Navbar, Form, Col, Row, Container } from 'react-bootstrap';
+import { Navbar, Form, Col, Row, Container, Nav } from 'react-bootstrap';
 import { EmojiSunglasses } from 'react-bootstrap-icons';
 import RangeSlider from 'react-bootstrap-range-slider';
+import { Link } from 'react-router-dom';
 
 export default function NavBar({
   cities,
@@ -46,7 +47,18 @@ export default function NavBar({
             </Form>
           </Col>
 
-          <Col className='text-end' sm={7}>
+          <Col>
+            <Nav justify navbar={true} variant='tabs'>
+              <Link to='/current' className='nav-link'>
+                כרגע
+              </Link>
+              <Link to='/forecast' className='nav-link'>
+                תחזית
+              </Link>
+            </Nav>
+          </Col>
+
+          <Col className='text-end' sm={4}>
             <Navbar.Brand href='/'>
               <strong>
                 <EmojiSunglasses /> {title}
