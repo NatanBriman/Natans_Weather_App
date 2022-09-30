@@ -1,0 +1,8 @@
+.weather-card {
+  box-shadow: 0 0 2px #888888;
+}
+
+.weather-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 3px #888888;
+}

@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { Card } from 'react-bootstrap';
-import ForecastTable from './Components/ForecastTable';
 import NavBar from './Components/NavBar';
-
-const DAYS_TO_SHOW = 7;
+import { ForecastPage } from './Views/ForecastPage';
 
 const CITIES = [
   'Haifa',
@@ -14,15 +11,27 @@ const CITIES = [
   'Moscow',
 ];
 
+const APP_TITLE = 'התחזית של המגניבים';
+const APP_LOGO = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
+const INITIAL_DAYS_TO_SHOW = 5;
+const MAX_DAYS_AMOUNT = 7;
+
 export const App = () => {
   const [city, setCity] = useState(CITIES[0]);
+  const [daysAmount, setDaysAmount] = useState(INITIAL_DAYS_TO_SHOW);
 
   return (
     <>
-      <NavBar cities={CITIES} setCity={setCity} title="Natan's Weather App" />
-      <Card className='mt-2 ms-2 me-2'>
-        <ForecastTable city={city} daysAmount={DAYS_TO_SHOW} />
-      </Card>
+      <NavBar
+        cities={CITIES}
+        setCity={setCity}
+        title={APP_TITLE}
+        logo={APP_LOGO}
+        daysAmount={daysAmount}
+        setDaysAmount={setDaysAmount}
+        MAX_DAYS_AMOUNT={MAX_DAYS_AMOUNT}
+      />
+      <ForecastPage city={city} daysAmount={daysAmount} />
     </>
   );
 };
