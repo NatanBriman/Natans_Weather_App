@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Form, Col, Row, Container, Nav } from 'react-bootstrap';
 import { EmojiSunglasses } from 'react-bootstrap-icons';
 import RangeSlider from 'react-bootstrap-range-slider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function NavBar({
   cities,
@@ -14,6 +14,8 @@ export default function NavBar({
 }) {
   const handleCitySelect = ({ target: { value } }) => setCity(value);
   const handleDaysChange = ({ target: { value } }) => setDaysAmount(value);
+
+  const isShowDaysRange = useLocation().pathname === '/forecast';
 
   return (
     <Navbar bg='primary' className='shadow'>
@@ -28,26 +30,30 @@ export default function NavBar({
           </Col>
 
           <Col sm={2}>
-            <Form>
-              <Form.Group as={Row}>
-                <Form.Label column sm='3'>
-                  ימים
-                </Form.Label>
-                <Col sm='9'>
-                  <RangeSlider
-                    variant='danger'
-                    min={1}
-                    max={MAX_DAYS_AMOUNT}
-                    value={daysAmount}
-                    onChange={handleDaysChange}
-                    step={1}
-                  />
-                </Col>
-              </Form.Group>
-            </Form>
+            {isShowDaysRange ? (
+              <Form>
+                <Form.Group as={Row}>
+                  <Form.Label column sm='3'>
+                    ימים
+                  </Form.Label>
+                  <Col sm='9'>
+                    <RangeSlider
+                      variant='danger'
+                      min={1}
+                      max={MAX_DAYS_AMOUNT}
+                      value={daysAmount}
+                      onChange={handleDaysChange}
+                      step={1}
+                    />
+                  </Col>
+                </Form.Group>
+              </Form>
+            ) : (
+              <></>
+            )}
           </Col>
 
-          <Col>
+          <Col sm={4}>
             <Nav justify navbar={true} variant='tabs'>
               <Link to='/current' className='nav-link'>
                 כרגע
@@ -58,12 +64,12 @@ export default function NavBar({
             </Nav>
           </Col>
 
-          <Col className='text-end' sm={4}>
-            <Navbar.Brand href='/'>
-              <strong>
+          <Col className='d-flex align-items-center justify-content-end' sm={4}>
+            <Link className='nav-link' to='/current'>
+              <h3>
                 <EmojiSunglasses /> {title}
-              </strong>
-            </Navbar.Brand>
+              </h3>
+            </Link>
           </Col>
         </Row>
       </Container>

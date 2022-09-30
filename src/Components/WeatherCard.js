@@ -11,9 +11,13 @@ export default function WeatherCard({
 }) {
   const formattedDate = formatDate(new Date(weather.date));
 
+  const handleClick = () => {
+    if (setSelectedWeather) setSelectedWeather(weather);
+  };
+
   return (
     <Card
-      onClick={() => setSelectedWeather(weather)}
+      onClick={handleClick}
       style={{ height: '100%', cursor: 'pointer' }}
       bg='light'
       className={
@@ -24,7 +28,7 @@ export default function WeatherCard({
       }
     >
       <Card.Header>
-        <h3 style={{ textDecoration: 'underline' }}>
+        <h3>
           <strong>{formattedDate}</strong>
         </h3>
       </Card.Header>
