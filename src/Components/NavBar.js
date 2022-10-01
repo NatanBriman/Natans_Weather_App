@@ -9,11 +9,11 @@ export default function NavBar({
   cities,
   setCity,
   title,
-  daysAmount,
-  setDaysAmount,
+  days,
+  setDays,
   MAX_DAYS_AMOUNT,
 }) {
-  const handleDaysChange = ({ target: { value } }) => setDaysAmount(value);
+  const handleDaysChange = ({ target: { value } }) => setDays(value);
 
   const isShowDaysRange = useLocation().pathname === '/forecast';
   const isErrorPage = useLocation().pathname === '/special';
@@ -41,7 +41,7 @@ export default function NavBar({
                       variant='danger'
                       min={1}
                       max={MAX_DAYS_AMOUNT}
-                      value={daysAmount}
+                      value={days}
                       onChange={handleDaysChange}
                       step={1}
                     />
