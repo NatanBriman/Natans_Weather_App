@@ -32,13 +32,13 @@ export const App = () => {
   const [forecast, setForecast] = useState([]);
   const [isShowAlert, setIsShowAlert] = useState(false);
 
-  const getForecastForCityInDays = async (city, days, setForecast) => {
+  const getForecastForCity = async (city, setForecast) => {
     try {
       const {
         data: {
           forecast: { forecastday },
         },
-      } = await api.forecastInCityForDays(city, days);
+      } = await api.forecastInCityForDays(city, MAX_DAYS_AMOUNT);
 
       setForecast(forecastday);
     } catch (error) {
@@ -53,8 +53,8 @@ export const App = () => {
   };
 
   useEffect(() => {
-    if (city) getForecastForCityInDays(city, days, setForecast);
-  }, [city, days]);
+    if (city) getForecastForCity(city, setForecast);
+  }, [city]);
 
   useEffect(() => {
     initializeCities();
@@ -67,7 +67,7 @@ export const App = () => {
   const ROUTES = [
     {
       path: '/forecast',
-      element: <ForecastPage forecast={forecast} />,
+      element: <ForecastPage forecast={forecast} days={days} />,
     },
     {
       path: '/current',

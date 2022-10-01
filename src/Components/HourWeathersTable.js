@@ -14,7 +14,7 @@ export default function HourWeathersTable({ weather }) {
     <Card className='text-center shadow border mb-2 border-success'>
       <Card.Header>
         <Card.Title>
-          <h3>{date} נתונים יומיים</h3>
+          <h3>נתונים שעתיים</h3>
         </Card.Title>
       </Card.Header>
 

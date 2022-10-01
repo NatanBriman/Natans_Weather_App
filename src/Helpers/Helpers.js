@@ -6,7 +6,7 @@ export const getWeekday = (date) =>
 export const getDateString = (date) => date.toLocaleDateString();
 
 export const isEmpty = (data) => {
-  if (data === undefined) return false;
+  if (data === undefined) return true;
 
   switch (typeof data) {
     case 'object':
@@ -68,9 +68,6 @@ export const getHourlyDetails = (weather) => {
     { detail: Math.round(weather.feelslike_c) + '°', text: 'מרגיש כמו' },
   ];
 };
-
-export const splitArrayToGroups = ([a, b, c, d, ...etc]) =>
-  etc.length ? [[a, b, c, d], ...splitArrayToGroups(etc)] : [[a, b, c, d]];
 
 export const getAstroDetails = (weather) => {
   //   "astro": {

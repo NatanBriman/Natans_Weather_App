@@ -3,7 +3,7 @@ import { Card, Container, Image } from 'react-bootstrap';
 import { isEmpty } from '../Helpers/Helpers';
 import DetailCard from './DetailCard';
 
-export default function WeatherCard({
+export default function MoreDetailsCard({
   weather,
   details,
   title,
@@ -42,9 +42,13 @@ export default function WeatherCard({
         </Container>
       </Card.Body>
 
-      <Card.Footer>
-        <Image fluid src={icon} alt='Weather Icon' />
-      </Card.Footer>
+      {!isEmpty(icon) ? (
+        <Card.Footer>
+          <Image fluid src={icon} alt='Weather Condition Icon' />
+        </Card.Footer>
+      ) : (
+        <></>
+      )}
     </Card>
   );
 }

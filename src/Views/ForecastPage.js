@@ -10,8 +10,9 @@ import {
   getDailyIcon,
 } from '../Helpers/Helpers';
 
-export const ForecastPage = ({ forecast }) => {
+export const ForecastPage = ({ forecast, days }) => {
   const [selectedWeather, setSelectedWeather] = useState({});
+  const [forecastToShow, setForecastToShow] = useState(forecast);
 
   const selectedWeatherWeekday = getWeekday(new Date(selectedWeather.date));
   const selectedWeatherDate = getDateString(new Date(selectedWeather.date));
@@ -21,6 +22,10 @@ export const ForecastPage = ({ forecast }) => {
   useEffect(() => {
     if (!isEmpty(forecast)) setSelectedWeather(forecast[0]);
   }, [forecast]);
+
+  useEffect(() => {
+    setForecastToShow(forecast.slice(0, days));
+  }, [days, forecast]);
 
   return (
     <Container fluid className='mt-2' style={{ height: '87vh' }}>
@@ -42,7 +47,7 @@ export const ForecastPage = ({ forecast }) => {
         <Col sm={9} className='mb-2'>
           <Card className='shadow' bg='light' style={{ height: '100%' }}>
             <ForecastTable
-              forecast={forecast}
+              forecast={forecastToShow}
               selectedWeather={selectedWeather}
               setSelectedWeather={setSelectedWeather}
             />
