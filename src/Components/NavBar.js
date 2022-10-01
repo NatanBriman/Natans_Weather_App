@@ -3,6 +3,7 @@ import { Navbar, Form, Col, Row, Container, Nav } from 'react-bootstrap';
 import { EmojiSunglasses } from 'react-bootstrap-icons';
 import RangeSlider from 'react-bootstrap-range-slider';
 import { Link, useLocation } from 'react-router-dom';
+import AutocompleteCity from './AutocompleteCity';
 
 export default function NavBar({
   cities,
@@ -12,7 +13,6 @@ export default function NavBar({
   setDaysAmount,
   MAX_DAYS_AMOUNT,
 }) {
-  const handleCitySelect = ({ target: { value } }) => setCity(value);
   const handleDaysChange = ({ target: { value } }) => setDaysAmount(value);
 
   const isShowDaysRange = useLocation().pathname === '/forecast';
@@ -25,15 +25,8 @@ export default function NavBar({
     >
       <Container fluid>
         <Row style={{ width: '100%' }} className='justify-content-between'>
-          <Col sm={2}>
-            <Form.Select
-              onChange={handleCitySelect}
-              className='shadow border border-danger'
-            >
-              {cities.map((city) => (
-                <option key={city}>{city}</option>
-              ))}
-            </Form.Select>
+          <Col sm={3}>
+            <AutocompleteCity cities={cities} setCity={setCity} />
           </Col>
 
           <Col sm={2}>
@@ -71,7 +64,7 @@ export default function NavBar({
             </Nav>
           </Col>
 
-          <Col className='d-flex align-items-center justify-content-end' sm={4}>
+          <Col className='d-flex align-items-center justify-content-end' sm={3}>
             <Link to='/current' className='nav-link'>
               <h3>
                 <EmojiSunglasses /> {title}
