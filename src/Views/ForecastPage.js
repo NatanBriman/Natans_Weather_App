@@ -2,28 +2,25 @@ import { useEffect, useState } from 'react';
 import { Card, Row, Col, Container } from 'react-bootstrap';
 import ForecastTable from '../Components/ForecastTable';
 import MoreDetailsCard from '../Components/MoreDetailsCard';
+import {
+  getWeekday,
+  getDateString,
+  isEmpty,
+  getDailyDetails,
+  getDailyIcon,
+} from '../Helpers/Helpers';
 
-const isEmpty = (object) => Object.keys(object).length === 0;
-
-export const ForecastPage = ({ city, daysAmount, forecast, setForecast }) => {
+export const ForecastPage = ({ forecast }) => {
   const [selectedWeather, setSelectedWeather] = useState({});
 
+  const selectedWeatherWeekday = getWeekday(new Date(selectedWeather.date));
+  const selectedWeatherDate = getDateString(new Date(selectedWeather.date));
+  const selectedWeatherDailyDetails = getDailyDetails(selectedWeather);
+  const selectedWeatherDailyIcon = getDailyIcon(selectedWeather);
+
   useEffect(() => {
-    if (forecast.length > 0) setSelectedWeather(forecast[0]);
+    if (!isEmpty(forecast)) setSelectedWeather(forecast[0]);
   }, [forecast]);
-
-  const moreDetails = (weather) => {
-    if (isEmpty(weather)) return;
-
-    return [
-      {
-        detail: <bdi>{Math.round(weather.day.maxwind_kph)} קמ"ש</bdi>,
-        text: 'מהירות הרוח',
-      },
-      { detail: weather.day.avghumidity + '%', text: 'לחות' },
-      { detail: weather.day.uv, text: 'אינדקס קרינה' },
-    ];
-  };
 
   return (
     <Container fluid className='mt-2' style={{ height: '87vh' }}>
@@ -33,7 +30,10 @@ export const ForecastPage = ({ city, daysAmount, forecast, setForecast }) => {
             <Container style={{ height: '100%' }} className='mt-2 mb-2'>
               <MoreDetailsCard
                 weather={selectedWeather}
-                details={moreDetails(selectedWeather)}
+                details={selectedWeatherDailyDetails}
+                title={selectedWeatherWeekday}
+                subtitle={selectedWeatherDate}
+                icon={selectedWeatherDailyIcon}
               />
             </Container>
           </Card>

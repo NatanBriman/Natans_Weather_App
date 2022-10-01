@@ -1,38 +1,32 @@
 import React from 'react';
 import { Card, Container, Image } from 'react-bootstrap';
+import { isEmpty } from '../Helpers/Helpers';
 import DetailCard from './DetailCard';
 
-const formatLongDate = (date) => {
-  return {
-    weekDay: date.toLocaleString('default', {
-      weekday: 'long',
-    }),
-    date: date.toLocaleDateString(),
-  };
-};
-
-const isEmpty = (object) => Object.keys(object).length === 0;
-
-export default function WeatherCard({ weather, details }) {
+export default function WeatherCard({
+  weather,
+  details,
+  title,
+  subtitle,
+  icon,
+}) {
   if (isEmpty(weather)) return;
-
-  const { weekDay, date } = formatLongDate(new Date(weather.date));
 
   return (
     <Card
       bg='light'
-      style={{ height: '100%' }}
+      style={{ height: '100%', width: '100%' }}
       className='text-center shadow border border-1 border-danger'
     >
       <Card.Header>
         <Card.Title>
           <h3>
-            <strong>{weekDay}</strong>
+            <strong>{title}</strong>
           </h3>
         </Card.Title>
 
         <Card.Subtitle>
-          <h5>{date}</h5>
+          <h5>{subtitle}</h5>
         </Card.Subtitle>
       </Card.Header>
 
@@ -49,7 +43,7 @@ export default function WeatherCard({ weather, details }) {
       </Card.Body>
 
       <Card.Footer>
-        <Image fluid src={weather.day.condition.icon} alt='Weather Icon' />
+        <Image fluid src={icon} alt='Weather Icon' />
       </Card.Footer>
     </Card>
   );

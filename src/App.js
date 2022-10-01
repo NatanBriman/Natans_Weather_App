@@ -6,6 +6,7 @@ import CurrentWeatherPage from './Views/CurrentWeatherPage';
 import api from './Api/Api';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import Router from './Router/Router';
+import { isEmpty } from './Helpers/Helpers';
 
 const APP_TITLE = 'התחזית של נתן';
 const APP_LOGO = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
@@ -60,7 +61,7 @@ export const App = () => {
   }, []);
 
   useEffect(() => {
-    if (cities.length > 0) setCity('Haifa');
+    if (!isEmpty(cities)) setCity('Haifa');
   }, [cities]);
 
   const ROUTES = [

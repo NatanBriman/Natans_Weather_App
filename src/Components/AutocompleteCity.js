@@ -1,13 +1,13 @@
 import React from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { InputGroup } from 'react-bootstrap';
+import { isEmpty } from '../Helpers/Helpers';
 
 const getCityFromOption = (option) => option.substr(0, option.indexOf(','));
 
 export default function AutocompleteCity({ cities, setCity }) {
   const handleCitySelect = (selectedCities) => {
-    if (selectedCities.length > 0)
-      setCity(getCityFromOption(selectedCities[0]));
+    if (!isEmpty(selectedCities)) setCity(getCityFromOption(selectedCities[0]));
   };
 
   return (
