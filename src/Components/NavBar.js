@@ -16,13 +16,20 @@ export default function NavBar({
   const handleDaysChange = ({ target: { value } }) => setDaysAmount(value);
 
   const isShowDaysRange = useLocation().pathname === '/forecast';
+  const isErrorPage = useLocation().pathname === '/special';
 
   return (
-    <Navbar bg='primary' className='shadow'>
+    <Navbar
+      style={{ backgroundColor: isErrorPage ? '#d9165d' : '#4da6eb' }}
+      className='shadow'
+    >
       <Container fluid>
         <Row style={{ width: '100%' }} className='justify-content-between'>
           <Col sm={2}>
-            <Form.Select onChange={handleCitySelect} className='shadow'>
+            <Form.Select
+              onChange={handleCitySelect}
+              className='shadow border border-danger'
+            >
               {cities.map((city) => (
                 <option key={city}>{city}</option>
               ))}
@@ -65,7 +72,7 @@ export default function NavBar({
           </Col>
 
           <Col className='d-flex align-items-center justify-content-end' sm={4}>
-            <Link className='nav-link' to='/current'>
+            <Link to='/current' className='nav-link'>
               <h3>
                 <EmojiSunglasses /> {title}
               </h3>
