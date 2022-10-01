@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, Container, Image } from 'react-bootstrap';
 import { isEmpty } from '../Helpers/Helpers';
 import DetailCard from './DetailCard';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { InputGroup } from 'react-bootstrap';
 import { isEmpty } from '../Helpers/Helpers';

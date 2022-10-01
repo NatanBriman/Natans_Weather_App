@@ -1,10 +1,8 @@
-import React from 'react';
 import { Card, Table } from 'react-bootstrap';
-import { getTime, getHourlyDetails, getDateString } from '../Helpers/Helpers';
+import { getTime, getHourlyDetails } from '../Helpers/Helpers';
 
 export default function HourWeathersTable({ weather }) {
   const hourWeathers = weather.hour;
-  const date = getDateString(new Date(weather.date));
 
   const details = getHourlyDetails(hourWeathers[0]).map(
     (detail) => detail.text

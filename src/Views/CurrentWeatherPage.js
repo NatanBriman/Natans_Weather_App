@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import HourWeathersTable from '../Components/HourWeathersTable';
 import MoreDetailsCard from '../Components/MoreDetailsCard';
@@ -6,11 +5,8 @@ import {
   getWeekday,
   getDateString,
   isEmpty,
-  getTime,
   getDailyDetails,
   getDailyIcon,
-  getHourlyDetails,
-  getHourlyIcon,
 } from '../Helpers/Helpers';
 
 export default function CurrentWeatherPage({ forecast }) {
@@ -32,7 +28,7 @@ export default function CurrentWeatherPage({ forecast }) {
           <Card className='shadow border border-primary mb-4'>
             <Row className='align-items-center'>
               <Col sm={8}>
-                <Image src={currentWeather.day.condition.icon} />
+                <Image src={currentWeatherIcon} />
               </Col>
               <Col sm={4}>
                 <h1>{currentWeather.day.avgtemp_c}°</h1>

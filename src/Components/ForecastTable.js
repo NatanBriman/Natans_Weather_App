@@ -1,4 +1,3 @@
-import React from 'react';
 import WeatherCard from './WeatherCard';
 import { Col, Container, Row } from 'react-bootstrap';
 

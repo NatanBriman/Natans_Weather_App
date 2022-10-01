@@ -1,5 +1,4 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 
 const formatDate = (date) =>
   date.toLocaleString('default', { weekday: 'long' }).slice(4);

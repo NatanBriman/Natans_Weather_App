@@ -10,7 +10,7 @@ import {
   getDailyIcon,
 } from '../Helpers/Helpers';
 
-export const ForecastPage = ({ forecast, days }) => {
+export default function ForecastPage({ forecast, days }) {
   const [selectedWeather, setSelectedWeather] = useState({});
   const [forecastToShow, setForecastToShow] = useState(forecast);
 
@@ -56,4 +56,4 @@ export const ForecastPage = ({ forecast, days }) => {
       </Row>
     </Container>
   );
-};
+}

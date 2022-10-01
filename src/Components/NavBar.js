@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navbar, Form, Col, Row, Container, Nav } from 'react-bootstrap';
 import { EmojiSunglasses } from 'react-bootstrap-icons';
 import RangeSlider from 'react-bootstrap-range-slider';

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import NavBar from './Components/NavBar';
-import { ForecastPage } from './Views/ForecastPage';
+import ForecastPage from './Views/ForecastPage';
 import ErrorPage from './Views/ErrorPage';
 import CurrentWeatherPage from './Views/CurrentWeatherPage';
 import api from './Api/Api';
