@@ -1,38 +1,49 @@
 import React from 'react';
-import { Container, Card, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image } from 'react-bootstrap';
+import HourWeathersTable from '../Components/HourWeathersTable';
 import MoreDetailsCard from '../Components/MoreDetailsCard';
-
-const isEmpty = (object) => Object.keys(object).length === 0;
+import {
+  getWeekday,
+  getDateString,
+  isEmpty,
+  getTime,
+  getDailyDetails,
+  getDailyIcon,
+  getHourlyDetails,
+  getHourlyIcon,
+} from '../Helpers/Helpers';
 
 export default function CurrentWeatherPage({ forecast }) {
-  if (forecast.length === 0) return;
-
-  const details = (weather) => {
-    if (isEmpty(weather)) return;
-
-    return [
-      {
-        detail: Math.round(weather.day.avgtemp_c) + '°',
-        text: 'טמפרטורה ממוצעת',
-      },
-      {
-        detail: <bdi>{Math.round(weather.day.maxwind_kph)} קמ"ש</bdi>,
-        text: 'מהירות הרוח',
-      },
-      { detail: weather.day.avghumidity + '%', text: 'לחות' },
-      { detail: weather.day.uv, text: 'אינדקס קרינה' },
-    ];
-  };
+  if (isEmpty(forecast)) return;
 
   const currentWeather = forecast[0];
+  const currentWeatherDailyDetails = getDailyDetails(currentWeather);
+  const currentWeatherWeekday = getWeekday(new Date(currentWeather.date));
+  const currentWeatherDate = getDateString(new Date(currentWeather.date));
+  const currentWeatherIcon = getDailyIcon(currentWeather);
 
   return (
-    <Container fluid className='mt-3' style={{ height: '80vh' }}>
-      <Row className='justify-content-center' style={{ height: '100%' }}>
-        <Col sm={6} style={{ height: '100%' }}>
+    <Container className='mt-3'>
+      <Row>
+        <Col>
+          <HourWeathersTable weather={currentWeather} />
+        </Col>
+        <Col sm={4} style={{ height: '100%' }}>
+          <Card className='shadow border border-primary mb-4'>
+            <Row className='align-items-center'>
+              <Col sm={8}>
+                <Image src={currentWeather.day.condition.icon} />
+              </Col>
+              <Col sm={4}>
+                <h1>{currentWeather.day.avgtemp_c}°</h1>
+              </Col>
+            </Row>
+          </Card>
           <MoreDetailsCard
             weather={currentWeather}
-            details={details(currentWeather)}
+            details={currentWeatherDailyDetails}
+            title={currentWeatherWeekday}
+            subtitle={currentWeatherDate}
           />
         </Col>
       </Row>

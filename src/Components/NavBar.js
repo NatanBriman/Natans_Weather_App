@@ -15,8 +15,9 @@ export default function NavBar({
 }) {
   const handleDaysChange = ({ target: { value } }) => setDays(value);
 
-  const isShowDaysRange = useLocation().pathname === '/forecast';
-  const isErrorPage = useLocation().pathname === '/special';
+  const currentLocation = useLocation().pathname;
+  const isShowDaysRange = currentLocation === '/forecast';
+  const isErrorPage = currentLocation === '/special';
 
   return (
     <Navbar
@@ -33,9 +34,6 @@ export default function NavBar({
             {isShowDaysRange ? (
               <Form>
                 <Form.Group as={Row}>
-                  <Form.Label column sm='3'>
-                    ימים
-                  </Form.Label>
                   <Col sm='9'>
                     <RangeSlider
                       variant='danger'
@@ -46,6 +44,9 @@ export default function NavBar({
                       step={1}
                     />
                   </Col>
+                  <Form.Label column sm='3'>
+                    ימים
+                  </Form.Label>
                 </Form.Group>
               </Form>
             ) : (

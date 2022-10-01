@@ -3,7 +3,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 
 export default function DetailCard({ detail, text }) {
   return (
-    <Card className='shadow mb-2 border-success'>
+    <Card className='shadow mb-2 border-success' style={{ height: '5%' }}>
       <Container>
         <Row className='text-center justify-content-center align-items-center'>
           <Col>

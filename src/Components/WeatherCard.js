@@ -38,7 +38,7 @@ export default function WeatherCard({
       </Card.Body>
 
       <Card.Footer>
-        <img src={weather.day.condition.icon} alt='Weather Icon' />
+        <img src={weather.day.condition.icon} />
       </Card.Footer>
     </Card>
   );

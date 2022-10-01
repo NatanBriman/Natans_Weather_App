@@ -6,6 +6,7 @@ import CurrentWeatherPage from './Views/CurrentWeatherPage';
 import api from './Api/Api';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import Router from './Router/Router';
+import { isEmpty } from './Helpers/Helpers';
 
 const APP_TITLE = 'התחזית של נתן';
 const APP_LOGO = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
@@ -31,13 +32,13 @@ export const App = () => {
   const [forecast, setForecast] = useState([]);
   const [isShowAlert, setIsShowAlert] = useState(false);
 
-  const getForecastForCityInDays = async (city, days, setForecast) => {
+  const getForecastForCity = async (city, setForecast) => {
     try {
       const {
         data: {
           forecast: { forecastday },
         },
-      } = await api.forecastInCityForDays(city, days);
+      } = await api.forecastInCityForDays(city, MAX_DAYS_AMOUNT);
 
       setForecast(forecastday);
     } catch (error) {
@@ -52,21 +53,21 @@ export const App = () => {
   };
 
   useEffect(() => {
-    if (city) getForecastForCityInDays(city, days, setForecast);
-  }, [city, days]);
+    if (city) getForecastForCity(city, setForecast);
+  }, [city]);
 
   useEffect(() => {
     initializeCities();
   }, []);
 
   useEffect(() => {
-    if (cities.length > 0) setCity('Haifa');
+    if (!isEmpty(cities)) setCity('Haifa');
   }, [cities]);
 
   const ROUTES = [
     {
       path: '/forecast',
-      element: <ForecastPage forecast={forecast} />,
+      element: <ForecastPage forecast={forecast} days={days} />,
     },
     {
       path: '/current',
