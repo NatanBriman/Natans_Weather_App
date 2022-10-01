@@ -7,5 +7,9 @@
   "prettier.jsxSingleQuote": true,
   "editor.fontSize": 18,
   "editor.fontFamily": "Consolas, 'Courier New', monospace",
-  "editor.linkedEditing": true
+  "editor.linkedEditing": true,
+  "workbench.colorTheme": "One Dark Pro Mix",
+  "oneDarkPro.editorTheme": "One Dark Pro Mix",
+  "ligaturesLimited.compactScopeDisplay": false,
+  "editor.fontLigatures": true
 }
