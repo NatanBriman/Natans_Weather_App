@@ -6,12 +6,12 @@ import CurrentWeatherPage from './Views/CurrentWeatherPage';
 import api from './Api/Api';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import Router from './Router/Router';
-import { isEmpty } from './Helpers/Helpers';
 
 const APP_TITLE = 'התחזית של נתן';
 const APP_LOGO = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
 const INITIAL_DAYS_TO_SHOW = 5;
 const MAX_DAYS_AMOUNT = 7;
+const INITIAL_CITY = 'Haifa';
 
 const getCities = async () => {
   const {
@@ -27,42 +27,10 @@ const getCities = async () => {
 
 export const App = () => {
   const [cities, setCities] = useState([]);
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState(INITIAL_CITY);
   const [days, setDays] = useState(INITIAL_DAYS_TO_SHOW);
   const [forecast, setForecast] = useState([]);
   const [isShowAlert, setIsShowAlert] = useState(false);
-
-  const getForecastForCity = async (city, setForecast) => {
-    try {
-      const {
-        data: {
-          forecast: { forecastday },
-        },
-      } = await api.forecastInCityForDays(city, MAX_DAYS_AMOUNT);
-
-      setForecast(forecastday);
-    } catch (error) {
-      setIsShowAlert(!isShowAlert);
-    }
-  };
-
-  const initializeCities = async () => {
-    const cities = await getCities();
-
-    setCities(cities);
-  };
-
-  useEffect(() => {
-    if (city) getForecastForCity(city, setForecast);
-  }, [city]);
-
-  useEffect(() => {
-    initializeCities();
-  }, []);
-
-  useEffect(() => {
-    if (!isEmpty(cities)) setCity('Haifa');
-  }, [cities]);
 
   const ROUTES = [
     {
@@ -78,6 +46,40 @@ export const App = () => {
       element: <ErrorPage />,
     },
   ];
+
+  const getForecastForCity = async (city) => {
+    try {
+      const {
+        data: {
+          forecast: { forecastday },
+        },
+      } = await api.forecastInCityForDays(city, MAX_DAYS_AMOUNT);
+
+      return forecastday;
+    } catch (error) {
+      setIsShowAlert(true);
+    }
+  };
+
+  const initializeCities = async () => {
+    const cities = await getCities();
+
+    setCities(cities);
+  };
+
+  const initializeForecast = async (city) => {
+    const forecastInCity = await getForecastForCity(city);
+
+    if (forecastInCity) setForecast(forecastInCity);
+  };
+
+  useEffect(() => {
+    initializeCities();
+  });
+
+  useEffect(() => {
+    if (city) initializeForecast(city);
+  }, [city]);
 
   return (
     <>
@@ -95,9 +97,7 @@ export const App = () => {
         confirmBtnText='סבבה'
         type='error'
         title='שגיאה בקבלת מזג האוויר'
-        onConfirm={() => {
-          setIsShowAlert(!isShowAlert);
-        }}
+        onConfirm={() => setIsShowAlert(false)}
         show={isShowAlert}
       >
         <bdi>מצטערים, אין לנו מידע על העיר {city}</bdi>

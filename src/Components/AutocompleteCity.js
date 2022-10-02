@@ -6,7 +6,11 @@ const getCityFromOption = (option) => option.substr(0, option.indexOf(','));
 
 export default function AutocompleteCity({ cities, setCity }) {
   const handleCitySelect = (selectedCities) => {
-    if (!isEmpty(selectedCities)) setCity(getCityFromOption(selectedCities[0]));
+    if (!isEmpty(selectedCities)) {
+      const city = getCityFromOption(selectedCities[0]);
+
+      setCity(city);
+    }
   };
 
   return (
