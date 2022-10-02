@@ -10,9 +10,8 @@ import {
   getDailyIcon,
 } from '../Helpers/Helpers';
 
-export default function ForecastPage({ forecast, days }) {
+export default function ForecastPage({ forecast }) {
   const [selectedWeather, setSelectedWeather] = useState({});
-  const [forecastToShow, setForecastToShow] = useState(forecast);
 
   const selectedWeatherWeekday = getWeekday(new Date(selectedWeather.date));
   const selectedWeatherDate = getDateString(new Date(selectedWeather.date));
@@ -20,15 +19,11 @@ export default function ForecastPage({ forecast, days }) {
   const selectedWeatherDailyIcon = getDailyIcon(selectedWeather);
 
   useEffect(() => {
-    if (!isEmpty(forecast)) setSelectedWeather(forecast[0]);
+    if (!isEmpty(forecast)) setSelectedWeather(forecast[forecast.length - 1]);
   }, [forecast]);
 
-  useEffect(() => {
-    setForecastToShow(forecast.slice(0, days));
-  }, [days, forecast]);
-
   return (
-    <Container fluid className='mt-2' style={{ height: '87vh' }}>
+    <Container fluid className='mt-2' style={{ height: '100%' }}>
       <Row style={{ height: '100%' }}>
         <Col sm={3} className='mb-2'>
           <Card className='shadow' bg='light' style={{ height: '100%' }}>
@@ -47,7 +42,7 @@ export default function ForecastPage({ forecast, days }) {
         <Col sm={9} className='mb-2'>
           <Card className='shadow' bg='light' style={{ height: '100%' }}>
             <ForecastTable
-              forecast={forecastToShow}
+              forecast={forecast}
               selectedWeather={selectedWeather}
               setSelectedWeather={setSelectedWeather}
             />

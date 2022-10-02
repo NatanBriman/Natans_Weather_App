@@ -1,4 +1,4 @@
-import { Card, Container, Image } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 import { isEmpty } from '../Helpers/Helpers';
 import DetailCard from './DetailCard';
 
@@ -14,7 +14,7 @@ export default function MoreDetailsCard({
   return (
     <Card
       bg='light'
-      style={{ height: '100%', width: '100%' }}
+      style={{ height: '100%' }}
       className='text-center shadow border border-1 border-danger'
     >
       <Card.Header>
@@ -43,7 +43,7 @@ export default function MoreDetailsCard({
 
       {!isEmpty(icon) ? (
         <Card.Footer>
-          <Image fluid src={icon} alt='Weather Condition Icon' />
+          <img src={icon} />
         </Card.Footer>
       ) : (
         <></>

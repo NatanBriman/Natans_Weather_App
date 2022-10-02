@@ -1,14 +1,14 @@
 import Card from 'react-bootstrap/Card';
-
-const formatDate = (date) =>
-  date.toLocaleString('default', { weekday: 'long' }).slice(4);
+import { getWeekday, getDailyIcon, getDailyTemp } from '../Helpers/Helpers';
 
 export default function WeatherCard({
   weather,
   selectedWeather,
   setSelectedWeather,
 }) {
-  const formattedDate = formatDate(new Date(weather.date));
+  const formattedDate = getWeekday(new Date(weather.date)).slice(4);
+  const icon = getDailyIcon(weather);
+  const temperature = Math.round(getDailyTemp(weather));
 
   const handleClick = () => {
     if (setSelectedWeather) setSelectedWeather(weather);
@@ -33,11 +33,11 @@ export default function WeatherCard({
       </Card.Header>
 
       <Card.Body className='d-flex align-items-center justify-content-center'>
-        <h1>{Math.round(weather.day.avgtemp_c)}°</h1>
+        <h1>{temperature}°</h1>
       </Card.Body>
 
       <Card.Footer>
-        <img src={weather.day.condition.icon} />
+        <img src={icon} />
       </Card.Footer>
     </Card>
   );

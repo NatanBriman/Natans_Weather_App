@@ -45,6 +45,12 @@ export const getDailyIcon = (weather) => {
   return weather.day.condition.icon;
 };
 
+export const getDailyTemp = (weather) => {
+  if (isEmpty(weather)) return;
+
+  return weather.day.avgtemp_c;
+};
+
 export const getHourlyIcon = (weather) => {
   if (isEmpty(weather)) return;
 
@@ -69,13 +75,15 @@ export const getHourlyDetails = (weather) => {
   ];
 };
 
-export const getAstroDetails = (weather) => {
-  //   "astro": {
-  // "sunrise": "06:34 AM",
-  // "sunset": "06:25 PM",
-  // "moonrise": "12:14 PM",
-  // "moonset": "10:10 PM",
-  // "moon_phase": "Waxing Crescent",
-  // "moon_illumination": "36"
-  // },
-};
+// export const getAstroDetails = (weather) => {
+//   return {
+//     astro: {
+//       sunrise: '06:34 AM',
+//       sunset: '06:25 PM',
+//       moonrise: '12:14 PM',
+//       moonset: '10:10 PM',
+//       moon_phase: 'Waxing Crescent',
+//       moon_illumination: '36',
+//     },
+//   };
+// };
