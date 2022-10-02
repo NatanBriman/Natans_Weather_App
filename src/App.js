@@ -35,9 +35,7 @@ export const App = () => {
   const ROUTES = [
     {
       path: '/forecast',
-      element: (
-        <ForecastPage forecast={[...forecast.slice(0, days)].reverse()} />
-      ),
+      element: <ForecastPage forecast={forecast} days={days} />,
     },
     {
       path: '/current',

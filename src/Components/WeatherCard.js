@@ -10,13 +10,9 @@ export default function WeatherCard({
   const icon = getDailyIcon(weather);
   const temperature = Math.round(getDailyTemp(weather));
 
-  const handleClick = () => {
-    if (setSelectedWeather) setSelectedWeather(weather);
-  };
-
   return (
     <Card
-      onClick={handleClick}
+      onClick={() => setSelectedWeather(weather)}
       style={{ height: '100%', cursor: 'pointer' }}
       bg='light'
       className={
