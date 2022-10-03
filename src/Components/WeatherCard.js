@@ -8,7 +8,7 @@ export default function WeatherCard({ weather }) {
   const selectedWeatherDate = useSelector((state) => state.selectedWeatherDate);
   const { setSelectedWeatherDate } = forecastActions;
 
-  const formattedDate = getWeekday(new Date(weather.date)).slice(4);
+  const formattedDate = getWeekday(new Date(weather.date), false);
   const icon = getDailyIcon(weather);
   const temperature = Math.round(getDailyTemp(weather));
 
@@ -20,7 +20,7 @@ export default function WeatherCard({ weather }) {
       style={{ height: '100%', cursor: 'pointer' }}
       bg='light'
       className={
-        'weather-card text-center border' +
+        'clickable-card text-center border' +
         (selectedWeatherDate === weather.date
           ? ' border-1 border-danger'
           : ' border border-primary')

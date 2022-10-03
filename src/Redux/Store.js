@@ -5,6 +5,7 @@ import {
   INITIAL_CITY,
   MAX_DAYS_AMOUNT,
 } from '../Helpers/Constants';
+import { isEmpty } from '../Helpers/Helpers';
 
 const dispatch = (action) => store.dispatch(action);
 
@@ -36,7 +37,7 @@ const forecastSlice = createSlice({
   initialState: {
     forecast: [],
     selectedWeatherDate: '',
-    daysToShow: INITIAL_DAYS_TO_SHOW,
+    days: INITIAL_DAYS_TO_SHOW,
     isShowAlert: false,
     city: INITIAL_CITY,
   },
@@ -48,10 +49,11 @@ const forecastSlice = createSlice({
       state.selectedWeatherDate = action.payload;
     },
     initializeSelectedWeatherDate: (state, action) => {
-      state.selectedWeatherDate = state.forecast[0].date;
+      if (!isEmpty(state.forecast))
+        state.selectedWeatherDate = state.forecast[0].date;
     },
     setDaysToShow: (state, action) => {
-      state.daysToShow = action.payload;
+      state.days = action.payload;
     },
     initializeForecast: (state, action) => {
       initializeForecastForCity(

@@ -6,7 +6,7 @@ export default function ForecastTable({ forecast }) {
     <Container fluid style={{ height: '83vh' }} className='mt-2 mb-2'>
       <Row style={{ height: '100%' }}>
         {forecast.map((weather) => (
-          <Col style={{ height: '100%' }} key={weather.date}>
+          <Col key={weather.date}>
             <WeatherCard weather={weather} />
           </Col>
         ))}

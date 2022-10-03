@@ -9,3 +9,11 @@ export const MAX_DAYS_AMOUNT = 7;
 export const MIN_DAYS_AMOUNT = 1;
 
 export const INITIAL_CITY = 'Haifa';
+
+export const ERROR_MESSAGE_TITLE = 'שגיאה בקבלת מזג האוויר';
+export const ERROR_MESSAGE_DEFAULT_TEXT = 'מצטערים, אין לנו מידע על העיר ';
+export const getErrorMessageForCity = (city) => (
+  <bdi>
+    {ERROR_MESSAGE_DEFAULT_TEXT} {city}
+  </bdi>
+);

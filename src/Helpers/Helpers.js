@@ -1,7 +1,10 @@
-export const getWeekday = (date) =>
-  date.toLocaleString('default', {
+export const getWeekday = (date, withDay = true) => {
+  const weekday = date.toLocaleString('default', {
     weekday: 'long',
   });
+
+  return withDay ? weekday : weekday.slice(4);
+};
 
 export const getDateString = (date) => date.toLocaleDateString();
 
@@ -74,6 +77,12 @@ export const getHourlyDetails = (weather) => {
     { detail: Math.round(weather.feelslike_c) + '°', text: 'מרגיש כמו' },
   ];
 };
+
+export const findWeatherByDate = (weathers, date) =>
+  weathers.find((weather) => weather.date === date);
+
+export const formatForecastByDays = (forecast, days) =>
+  [...forecast.slice(0, days)].reverse();
 
 // export const getAstroDetails = (weather) => {
 //   return {

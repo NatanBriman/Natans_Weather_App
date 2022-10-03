@@ -4,30 +4,26 @@ import RouterView from './Router/Router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { forecastActions } from './Redux/Store';
-import { APP_TITLE } from './Helpers/Constants';
-import { isEmpty } from './Helpers/Helpers';
+import {
+  APP_TITLE,
+  ERROR_MESSAGE_TITLE,
+  getErrorMessageForCity,
+} from './Helpers/Constants';
 
 export const App = () => {
   const dispatch = useDispatch();
   const city = useSelector((state) => state.city);
-  const forecast = useSelector((state) => state.forecast);
+
   const { initializeForecast, setCity, initializeSelectedWeatherDate } =
     forecastActions;
 
   useEffect(() => {
+    dispatch(setCity(city));
+
     dispatch(initializeForecast(city));
   }, [city]);
 
-  useEffect(() => {
-    if (!isEmpty(forecast)) {
-      dispatch(setCity(city));
-
-      dispatch(initializeSelectedWeatherDate());
-    }
-  }, [forecast]);
-
-  const ERROR_MESSAGE_TITLE = 'שגיאה בקבלת מזג האוויר';
-  const ERROR_MESSAGE_TEXT = <bdi>מצטערים, אין לנו מידע על העיר {city}</bdi>;
+  const ERROR_MESSAGE_TEXT = getErrorMessageForCity(city);
 
   return (
     <>
