@@ -1,7 +1,7 @@
-import WeatherCard from './WeatherCard';
 import { Col, Container, Row } from 'react-bootstrap';
+import WeatherCard from './WeatherCard';
 
-export default function ForecastTable({ forecast }) {
+const ForecastTable = ({ forecast }) => {
   return (
     <Container fluid style={{ height: '83vh' }} className='mt-2 mb-2'>
       <Row style={{ height: '100%' }}>
@@ -13,4 +13,6 @@ export default function ForecastTable({ forecast }) {
       </Row>
     </Container>
   );
-}
+};
+
+export default ForecastTable;

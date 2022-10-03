@@ -1,21 +1,16 @@
-import NavBar from './Components/NavBar';
-import ErrorAlert from './Components/ErrorAlert';
-import RouterView from './Router/Router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { forecastActions } from './Redux/Store';
-import {
-  APP_TITLE,
-  ERROR_MESSAGE_TITLE,
-  getErrorMessageForCity,
-} from './Helpers/Constants';
+import { APP_TITLE, ERROR_MESSAGE_TITLE } from './Helpers/Constants';
+import { getErrorMessageForCity } from './Helpers/Helpers';
+import NavBar from './Components/NavBar/NavBar';
+import ErrorAlert from './Components/Information/ErrorAlert';
+import RouterView from './Router/Router';
 
-export const App = () => {
+const App = () => {
   const dispatch = useDispatch();
   const city = useSelector((state) => state.city);
-
-  const { initializeForecast, setCity, initializeSelectedWeatherDate } =
-    forecastActions;
+  const { initializeForecast, setCity } = forecastActions;
 
   useEffect(() => {
     dispatch(setCity(city));
@@ -35,3 +30,5 @@ export const App = () => {
     </>
   );
 };
+
+export default App;

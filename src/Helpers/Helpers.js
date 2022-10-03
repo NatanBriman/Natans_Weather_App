@@ -1,3 +1,6 @@
+import { ERROR_MESSAGE_DEFAULT_TEXT } from './Constants';
+import { ROUTES } from '../Router/Router';
+
 export const getWeekday = (date, withDay = true) => {
   const weekday = date.toLocaleString('default', {
     weekday: 'long',
@@ -22,7 +25,7 @@ export const isEmpty = (data) => {
       return data === '';
 
     default:
-      return false;
+      return true;
   }
 };
 
@@ -51,7 +54,7 @@ export const getDailyIcon = (weather) => {
 export const getDailyTemp = (weather) => {
   if (isEmpty(weather)) return;
 
-  return weather.day.avgtemp_c;
+  return Math.round(weather.day.avgtemp_c);
 };
 
 export const getHourlyIcon = (weather) => {
@@ -83,6 +86,24 @@ export const findWeatherByDate = (weathers, date) =>
 
 export const formatForecastByDays = (forecast, days) =>
   [...forecast.slice(0, days)].reverse();
+
+export const getErrorMessageForCity = (city) => (
+  <bdi>
+    {ERROR_MESSAGE_DEFAULT_TEXT} {city}
+  </bdi>
+);
+
+export const getLinks = () => ROUTES.slice(0, ROUTES.length - 1);
+
+export const getCityAndCountry = (city, country) => `${city}, ${country}`;
+
+export const addCountryToCities = (cities, country) =>
+  cities.map((city) => getCityAndCountry(city, country));
+
+export const formatCitiesAndCountries = (citiesAndCountries) =>
+  citiesAndCountries.flatMap((cityAndCountry) =>
+    addCountryToCities(cityAndCountry.cities, cityAndCountry.country)
+  );
 
 // export const getAstroDetails = (weather) => {
 //   return {

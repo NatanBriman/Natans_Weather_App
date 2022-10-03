@@ -1,9 +1,7 @@
 import { Table } from 'react-bootstrap';
-import { getTime, getHourlyDetails } from '../Helpers/Helpers';
+import { getTime, getHourlyDetails } from '../../Helpers/Helpers';
 
-export default function HourWeathersTable({ weather }) {
-  const hourWeathers = weather.hour;
-
+const HourWeathersTable = ({ weather: { hour: hourWeathers } }) => {
   const detailsText = getHourlyDetails(hourWeathers[0]).map(
     (detail) => detail.text
   );
@@ -33,4 +31,6 @@ export default function HourWeathersTable({ weather }) {
       </tbody>
     </Table>
   );
-}
+};
+
+export default HourWeathersTable;

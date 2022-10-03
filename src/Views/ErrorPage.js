@@ -1,6 +1,6 @@
 import { Card, Col, Container, Image, Row } from 'react-bootstrap';
 
-export default function ErrorPage() {
+const ErrorPage = () => {
   return (
     <Container fluid className='mt-2'>
       <Row className='align-items-center'>
@@ -23,4 +23,6 @@ export default function ErrorPage() {
       </Row>
     </Container>
   );
-}
+};
+
+export default ErrorPage;

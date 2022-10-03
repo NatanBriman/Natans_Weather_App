@@ -1,8 +1,8 @@
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { useDispatch, useSelector } from 'react-redux';
-import { forecastActions } from '../Redux/Store';
+import { forecastActions } from '../../Redux/Store';
 
-export default function ErrorAlert({ title, text }) {
+const ErrorAlert = ({ title, text }) => {
   const dispatch = useDispatch();
   const isShowAlert = useSelector((state) => state.isShowAlert);
   const { setIsShowAlert } = forecastActions;
@@ -20,4 +20,6 @@ export default function ErrorAlert({ title, text }) {
       {text}
     </SweetAlert>
   );
-}
+};
+
+export default ErrorAlert;
