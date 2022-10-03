@@ -18,13 +18,13 @@ export default function ForecastPage() {
 
   const days = useSelector((state) => state.daysToShow);
   const selectedWeatherDate = useSelector((state) => state.selectedWeatherDate);
+  const { setSelectedWeatherDate } = forecastActions;
 
   useEffect(() => {
     if (!isEmpty(forecast)) dispatch(setSelectedWeatherDate(forecast[0].date));
   }, [forecast]);
 
-  if (isEmpty(forecast)) return;
-  const { setSelectedWeatherDate } = forecastActions;
+  if (isEmpty(forecast) || isEmpty(selectedWeatherDate)) return;
 
   const selectedWeather = forecast.find(
     (weather) => weather.date === selectedWeatherDate

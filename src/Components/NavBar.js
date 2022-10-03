@@ -1,32 +1,68 @@
+import { useEffect, useState } from 'react';
 import { Navbar, Form, Col, Row, Container, Nav } from 'react-bootstrap';
 import { EmojiSunglasses } from 'react-bootstrap-icons';
 import RangeSlider from 'react-bootstrap-range-slider';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import api from '../Api/Api';
+import {
+  DEFAULT_PAGE_NAVBAR_COLOR,
+  ERROR_PAGE_NAVBAR_COLOR,
+  MIN_DAYS_AMOUNT,
+  MAX_DAYS_AMOUNT,
+} from '../Helpers/Constants';
 import { forecastActions } from '../Redux/Store';
 import AutocompleteCity from './AutocompleteCity';
 
-export default function NavBar({ cities, setCity, title, MAX_DAYS, MIN_DAYS }) {
+const getCities = async () => {
+  const {
+    data: { data: citiesAndCountries },
+  } = await api.getCountriesAndCities();
+
+  const cities = citiesAndCountries.flatMap((cityAndCountry) =>
+    cityAndCountry.cities.map((city) => `${city}, ${cityAndCountry.country}`)
+  );
+
+  return cities;
+};
+
+export default function NavBar({ title }) {
   const dispatch = useDispatch();
   const days = useSelector((state) => state.daysToShow);
   const { setDaysToShow } = forecastActions;
 
+  const [cities, setCities] = useState([]);
+
+  const initializeCities = async () => {
+    const cities = await getCities();
+
+    setCities(cities);
+  };
+
+  useEffect(() => {
+    initializeCities();
+  }, []);
+
   const handleDaysChange = ({ target: { value } }) =>
     dispatch(setDaysToShow(value));
 
-  const currentLocation = useLocation().pathname;
-  const isShowDaysRange = currentLocation === '/forecast';
-  const isErrorPage = currentLocation === '/special';
+  const currentPath = useLocation().pathname;
+  const isShowDaysRange = currentPath === '/forecast';
+  const isErrorPage = currentPath === '/special';
 
   return (
     <Navbar
-      style={{ backgroundColor: isErrorPage ? '#d9165d' : '#4da6eb' }}
+      style={{
+        backgroundColor: isErrorPage
+          ? ERROR_PAGE_NAVBAR_COLOR
+          : DEFAULT_PAGE_NAVBAR_COLOR,
+      }}
       className='shadow'
     >
       <Container fluid>
         <Row style={{ width: '100%' }} className='justify-content-between'>
           <Col sm={4}>
-            <AutocompleteCity cities={cities} setCity={setCity} />
+            <AutocompleteCity cities={cities} />
           </Col>
 
           <Col sm={2}>
@@ -36,8 +72,8 @@ export default function NavBar({ cities, setCity, title, MAX_DAYS, MIN_DAYS }) {
                   <Col sm='9'>
                     <RangeSlider
                       variant='danger'
-                      min={MIN_DAYS}
-                      max={MAX_DAYS}
+                      min={MIN_DAYS_AMOUNT}
+                      max={MAX_DAYS_AMOUNT}
                       value={days}
                       onChange={handleDaysChange}
                       step={1}
