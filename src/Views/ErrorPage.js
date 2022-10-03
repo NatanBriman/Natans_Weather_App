@@ -1,7 +1,6 @@
-import React from 'react';
 import { Card, Col, Container, Image, Row } from 'react-bootstrap';
 
-export default function ErrorPage() {
+const ErrorPage = () => {
   return (
     <Container fluid className='mt-2'>
       <Row className='align-items-center'>
@@ -15,7 +14,7 @@ export default function ErrorPage() {
         </Col>
 
         <Col sm={8}>
-          <Card className='shadow text-center border border-danger'>
+          <Card className='shadow text-center border-danger'>
             <Card.Body>
               <h1>ERROR 404 - NOT FOUND</h1>
             </Card.Body>
@@ -24,4 +23,6 @@ export default function ErrorPage() {
       </Row>
     </Container>
   );
-}
+};
+
+export default ErrorPage;
