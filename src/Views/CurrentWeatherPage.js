@@ -1,4 +1,5 @@
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import HourWeathersTable from '../Components/HourWeathersTable';
 import MoreDetailsCard from '../Components/MoreDetailsCard';
 import {
@@ -10,10 +11,11 @@ import {
   getDailyTemp,
 } from '../Helpers/Helpers';
 
-export default function CurrentWeatherPage({ forecast }) {
-  if (isEmpty(forecast)) return;
+export default function CurrentWeatherPage() {
+  const currentWeather = useSelector((state) => state.forecast[0]);
 
-  const currentWeather = forecast[0];
+  if (isEmpty(currentWeather)) return;
+
   const currentWeatherDailyDetails = getDailyDetails(currentWeather);
   const currentWeatherWeekday = getWeekday(new Date(currentWeather.date));
   const currentWeatherDate = getDateString(new Date(currentWeather.date));

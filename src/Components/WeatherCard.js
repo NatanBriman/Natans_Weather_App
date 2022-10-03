@@ -1,23 +1,27 @@
 import Card from 'react-bootstrap/Card';
+import { useDispatch, useSelector } from 'react-redux';
 import { getWeekday, getDailyIcon, getDailyTemp } from '../Helpers/Helpers';
+import { forecastActions } from '../Redux/Store';
 
-export default function WeatherCard({
-  weather,
-  selectedWeather,
-  setSelectedWeather,
-}) {
+export default function WeatherCard({ weather }) {
+  const dispatch = useDispatch();
+  const selectedWeatherDate = useSelector((state) => state.selectedWeatherDate);
+  const { setSelectedWeatherDate } = forecastActions;
+
   const formattedDate = getWeekday(new Date(weather.date)).slice(4);
   const icon = getDailyIcon(weather);
   const temperature = Math.round(getDailyTemp(weather));
 
+  const handleClick = () => dispatch(setSelectedWeatherDate(weather.date));
+
   return (
     <Card
-      onClick={() => setSelectedWeather(weather)}
+      onClick={handleClick}
       style={{ height: '100%', cursor: 'pointer' }}
       bg='light'
       className={
         'weather-card text-center border' +
-        (selectedWeather === weather
+        (selectedWeatherDate === weather.date
           ? ' border-1 border-danger'
           : ' border border-primary')
       }

@@ -41,12 +41,10 @@ export default function MoreDetailsCard({
         </Container>
       </Card.Body>
 
-      {!isEmpty(icon) ? (
+      {!isEmpty(icon) && (
         <Card.Footer>
           <img src={icon} />
         </Card.Footer>
-      ) : (
-        <></>
       )}
     </Card>
   );

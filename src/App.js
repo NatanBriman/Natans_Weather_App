@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import NavBar from './Components/NavBar';
-import ForecastPage from './Views/ForecastPage';
-import ErrorPage from './Views/ErrorPage';
-import CurrentWeatherPage from './Views/CurrentWeatherPage';
 import api from './Api/Api';
 import SweetAlert from 'react-bootstrap-sweetalert';
-import Router from './Router/Router';
+import RouterView from './Router/Router';
+import { useDispatch } from 'react-redux';
+import { forecastActions } from './Redux/Store';
 
 const APP_TITLE = 'התחזית של נתן';
 const APP_LOGO = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
-const INITIAL_DAYS_TO_SHOW = 5;
 const MAX_DAYS_AMOUNT = 7;
+const MIN_DAYS_AMOUNT = 1;
 const INITIAL_CITY = 'Haifa';
 
 const getCities = async () => {
@@ -26,26 +25,12 @@ const getCities = async () => {
 };
 
 export const App = () => {
+  const dispatch = useDispatch();
+  const { setForecast, setSelectedWeatherDate } = forecastActions;
+
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState(INITIAL_CITY);
-  const [days, setDays] = useState(INITIAL_DAYS_TO_SHOW);
-  const [forecast, setForecast] = useState([]);
   const [isShowAlert, setIsShowAlert] = useState(false);
-
-  const ROUTES = [
-    {
-      path: '/forecast',
-      element: <ForecastPage forecast={forecast} days={days} />,
-    },
-    {
-      path: '/current',
-      element: <CurrentWeatherPage forecast={forecast} />,
-    },
-    {
-      path: '/special',
-      element: <ErrorPage />,
-    },
-  ];
 
   const getForecastForCity = async (city) => {
     try {
@@ -70,12 +55,15 @@ export const App = () => {
   const initializeForecast = async (city) => {
     const forecastInCity = await getForecastForCity(city);
 
-    if (forecastInCity) setForecast(forecastInCity);
+    if (forecastInCity) {
+      dispatch(setForecast(forecastInCity));
+      dispatch(setSelectedWeatherDate(forecastInCity[0].date));
+    }
   };
 
   useEffect(() => {
     initializeCities();
-  });
+  }, []);
 
   useEffect(() => {
     if (city) initializeForecast(city);
@@ -88,9 +76,8 @@ export const App = () => {
         setCity={setCity}
         title={APP_TITLE}
         logo={APP_LOGO}
-        days={days}
-        setDays={setDays}
-        MAX_DAYS_AMOUNT={MAX_DAYS_AMOUNT}
+        MAX_DAYS={MAX_DAYS_AMOUNT}
+        MIN_DAYS={MIN_DAYS_AMOUNT}
       />
 
       <SweetAlert
@@ -103,7 +90,7 @@ export const App = () => {
         <bdi>מצטערים, אין לנו מידע על העיר {city}</bdi>
       </SweetAlert>
 
-      <Router routes={ROUTES} />
+      <RouterView />
     </>
   );
 };
