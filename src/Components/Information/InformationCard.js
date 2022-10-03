@@ -1,22 +1,13 @@
-import React from 'react';
-import { Card, Container, Image } from 'react-bootstrap';
-import { isEmpty } from '../Helpers/Helpers';
-import DetailCard from './DetailCard';
+import { Card, Container } from 'react-bootstrap';
+import { isEmpty } from '../../Helpers/Helpers';
+import DetailRow from './DetailRow';
 
-export default function MoreDetailsCard({
-  weather,
-  details,
-  title,
-  subtitle,
-  icon,
-}) {
-  if (isEmpty(weather)) return;
-
+const InformationCard = ({ details, title, subtitle, icon }) => {
   return (
     <Card
       bg='light'
-      style={{ height: '100%', width: '100%' }}
-      className='text-center shadow border border-1 border-danger'
+      style={{ height: '100%' }}
+      className='text-center shadow border border-danger'
     >
       <Card.Header>
         <Card.Title>
@@ -33,7 +24,7 @@ export default function MoreDetailsCard({
       <Card.Body className='d-flex align-items-center'>
         <Container>
           {details.map((detail) => (
-            <DetailCard
+            <DetailRow
               key={detail.detail}
               detail={detail.detail}
               text={detail.text}
@@ -42,13 +33,13 @@ export default function MoreDetailsCard({
         </Container>
       </Card.Body>
 
-      {!isEmpty(icon) ? (
+      {!isEmpty(icon) && (
         <Card.Footer>
-          <Image fluid src={icon} alt='Weather Condition Icon' />
+          <img src={icon} />
         </Card.Footer>
-      ) : (
-        <></>
       )}
     </Card>
   );
-}
+};
+
+export default InformationCard;

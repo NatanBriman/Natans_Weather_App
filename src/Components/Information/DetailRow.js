@@ -1,11 +1,10 @@
-import React from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 
-export default function DetailCard({ detail, text }) {
+const DetailRow = ({ detail, text }) => {
   return (
-    <Card className='shadow mb-2 border-success' style={{ height: '5%' }}>
+    <Card className='shadow mb-2 border-success'>
       <Container>
-        <Row className='text-center justify-content-center align-items-center'>
+        <Row className='text-center align-items-center'>
           <Col>
             <Card.Body>{detail}</Card.Body>
           </Col>
@@ -18,4 +17,6 @@ export default function DetailCard({ detail, text }) {
       </Container>
     </Card>
   );
-}
+};
+
+export default DetailRow;

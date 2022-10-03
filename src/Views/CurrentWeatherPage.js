@@ -1,52 +1,66 @@
-import React from 'react';
-import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import HourWeathersTable from '../Components/HourWeathersTable';
-import MoreDetailsCard from '../Components/MoreDetailsCard';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import {
   getWeekday,
   getDateString,
   isEmpty,
-  getTime,
   getDailyDetails,
   getDailyIcon,
-  getHourlyDetails,
-  getHourlyIcon,
+  getDailyTemp,
 } from '../Helpers/Helpers';
+import HourWeathersTable from '../Components/Weather/HourWeathersTable';
+import InformationCard from '../Components/Information/InformationCard';
 
-export default function CurrentWeatherPage({ forecast }) {
-  if (isEmpty(forecast)) return;
+const CurrentWeatherPage = () => {
+  const currentWeather = useSelector((state) => state.forecast[0]);
 
-  const currentWeather = forecast[0];
-  const currentWeatherDailyDetails = getDailyDetails(currentWeather);
-  const currentWeatherWeekday = getWeekday(new Date(currentWeather.date));
-  const currentWeatherDate = getDateString(new Date(currentWeather.date));
-  const currentWeatherIcon = getDailyIcon(currentWeather);
+  if (isEmpty(currentWeather)) return;
+
+  const dailyDetails = getDailyDetails(currentWeather);
+  const weekday = getWeekday(new Date(currentWeather.date), true);
+  const date = getDateString(new Date(currentWeather.date));
+  const icon = getDailyIcon(currentWeather);
+  const temperature = getDailyTemp(currentWeather);
 
   return (
     <Container className='mt-3'>
       <Row>
         <Col>
-          <HourWeathersTable weather={currentWeather} />
+          <Card
+            bg='light'
+            className='text-center shadow border mb-2 border-success'
+          >
+            <Card.Header>
+              <Card.Title>
+                <h3>נתונים שעתיים</h3>
+              </Card.Title>
+            </Card.Header>
+
+            <Card.Body>
+              <HourWeathersTable weather={currentWeather} />
+            </Card.Body>
+          </Card>
         </Col>
         <Col sm={4} style={{ height: '100%' }}>
           <Card className='shadow border border-primary mb-4'>
             <Row className='align-items-center'>
               <Col sm={8}>
-                <Image src={currentWeather.day.condition.icon} />
+                <img src={icon} />
               </Col>
-              <Col sm={4}>
-                <h1>{currentWeather.day.avgtemp_c}°</h1>
+              <Col sm={4} className='text-end'>
+                <h1>{temperature}°</h1>
               </Col>
             </Row>
           </Card>
-          <MoreDetailsCard
-            weather={currentWeather}
-            details={currentWeatherDailyDetails}
-            title={currentWeatherWeekday}
-            subtitle={currentWeatherDate}
+          <InformationCard
+            details={dailyDetails}
+            title={weekday}
+            subtitle={date}
           />
         </Col>
       </Row>
     </Container>
   );
-}
+};
+
+export default CurrentWeatherPage;

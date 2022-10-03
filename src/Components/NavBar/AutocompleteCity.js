@@ -1,13 +1,22 @@
-import React from 'react';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { InputGroup } from 'react-bootstrap';
-import { isEmpty } from '../Helpers/Helpers';
+import { isEmpty } from '../../Helpers/Helpers';
+import { useDispatch } from 'react-redux';
+import { forecastActions } from '../../Redux/Store';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const getCityFromOption = (option) => option.substr(0, option.indexOf(','));
 
-export default function AutocompleteCity({ cities, setCity }) {
+const AutocompleteCity = ({ cities }) => {
+  const dispatch = useDispatch();
+  const { setCity } = forecastActions;
+
   const handleCitySelect = (selectedCities) => {
-    if (!isEmpty(selectedCities)) setCity(getCityFromOption(selectedCities[0]));
+    if (!isEmpty(selectedCities)) {
+      const city = getCityFromOption(selectedCities[0]);
+
+      dispatch(setCity(city));
+    }
   };
 
   return (
@@ -15,7 +24,7 @@ export default function AutocompleteCity({ cities, setCity }) {
       <Typeahead
         id='city-autocomplete'
         options={cities}
-        defaultInputValue='Haifa, Israel'
+        defaultSelected={['Haifa, Israel']}
         onChange={handleCitySelect}
         emptyLabel='אין ערים עם השם הזה'
         highlightOnlyResult={true}
@@ -26,4 +35,6 @@ export default function AutocompleteCity({ cities, setCity }) {
       <InputGroup.Text>עיר</InputGroup.Text>
     </InputGroup>
   );
-}
+};
+
+export default AutocompleteCity;

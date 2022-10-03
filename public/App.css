@@ -1,8 +1,8 @@
-.weather-card {
+.clickable-card {
   box-shadow: 0 0 3px #888888;
 }
 
-.weather-card:hover {
+.clickable-card:hover {
   transform: scale(1.01);
   box-shadow: 0 0 5px #888888;
 }
