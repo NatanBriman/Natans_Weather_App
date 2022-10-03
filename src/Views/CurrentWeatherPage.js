@@ -45,7 +45,7 @@ const CurrentWeatherPage = () => {
           <Card className='shadow border border-primary mb-4'>
             <Row className='align-items-center'>
               <Col sm={8}>
-                <img src={icon} />
+                <img src={icon} alt='Weather Condition Icon' />
               </Col>
               <Col sm={4} className='text-end'>
                 <h1>{temperature}°</h1>

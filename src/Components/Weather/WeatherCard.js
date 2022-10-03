@@ -38,7 +38,7 @@ const WeatherCard = ({ weather }) => {
       </Card.Body>
 
       <Card.Footer>
-        <img src={icon} />
+        <img src={icon} alt='Weather Condition Icon' />
       </Card.Footer>
     </Card>
   );
