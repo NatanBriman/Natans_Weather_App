@@ -1,8 +1,8 @@
 import { Card, Col, Container, Row } from 'react-bootstrap';
 
-const DetailRow = ({ detail, text }) => {
+const DetailRow = ({ detail, text, color = '' }) => {
   return (
-    <Card className='shadow mb-2 border-success'>
+    <Card style={{ background: color }} className='shadow mb-2 border-success'>
       <Container>
         <Row className='text-center align-items-center'>
           <Col>

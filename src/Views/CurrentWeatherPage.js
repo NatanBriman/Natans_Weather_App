@@ -7,6 +7,7 @@ import {
   getDailyDetails,
   getDailyIcon,
   getDailyTemp,
+  getAstroDetails,
 } from '../Helpers/Helpers';
 import HourWeathersTable from '../Components/Weather/HourWeathersTable';
 import InformationCard from '../Components/Information/InformationCard';
@@ -21,6 +22,7 @@ const CurrentWeatherPage = () => {
   const date = getDateString(new Date(currentWeather.date));
   const icon = getDailyIcon(currentWeather);
   const temperature = getDailyTemp(currentWeather);
+  const astroDetails = getAstroDetails(currentWeather);
 
   return (
     <Container className='mt-3'>
@@ -56,6 +58,7 @@ const CurrentWeatherPage = () => {
             details={dailyDetails}
             title={weekday}
             subtitle={date}
+            astroDetails={astroDetails}
           />
         </Col>
       </Row>
