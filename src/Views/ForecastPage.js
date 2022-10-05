@@ -9,6 +9,7 @@ import {
   getDailyIcon,
   findWeatherByDate,
   formatForecastByDays,
+  getAstroDetails,
 } from '../Helpers/Helpers';
 import { forecastActions } from '../Redux/Store';
 import ForecastTable from '../Components/Weather/ForecastTable';
@@ -36,18 +37,20 @@ const ForecastPage = () => {
   );
   const selectedWeatherDetails = getDailyDetails(selectedWeather);
   const selectedWeatherIcon = getDailyIcon(selectedWeather);
+  const astroDetails = getAstroDetails(selectedWeather);
 
   return (
     <Container fluid className='mt-2'>
       <Row>
         <Col sm={3} className='mb-2'>
           <Card className='shadow' bg='light' style={{ height: '100%' }}>
-            <Container style={{ height: '100%' }} className='mt-2 mb-2'>
+            <Container style={{ height: '100%' }} className='my-2'>
               <InformationCard
                 details={selectedWeatherDetails}
                 title={selectedWeatherWeekday}
                 subtitle={formattedSelectedWeatherDate}
                 icon={selectedWeatherIcon}
+                astroDetails={astroDetails}
               />
             </Container>
           </Card>
