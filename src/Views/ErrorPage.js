@@ -1,4 +1,5 @@
 import { Card, Col, Container, Image, Row } from 'react-bootstrap';
+import { ERROR_IMAGE } from '../Helpers/Constants';
 
 const ErrorPage = () => {
   return (
@@ -9,7 +10,7 @@ const ErrorPage = () => {
             className='shadow border border-danger'
             style={{ height: '87vh' }}
             rounded
-            src='/Assets/404.jpg'
+            src={ERROR_IMAGE}
           />
         </Col>
 

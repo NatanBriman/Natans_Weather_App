@@ -12,6 +12,8 @@ const WeatherCard = ({ weather }) => {
   const formattedDate = getWeekday(new Date(dateString), false);
   const icon = getDailyIcon(weather);
   const temperature = getDailyTemp(weather);
+  const BORDER_COLOR =
+    selectedWeatherDate === dateString ? 'border-danger' : 'border-primary';
 
   const handleClick = () => dispatch(setSelectedWeatherDate(dateString));
 
@@ -20,12 +22,7 @@ const WeatherCard = ({ weather }) => {
       onClick={handleClick}
       style={{ height: '100%', cursor: 'pointer' }}
       bg='light'
-      className={
-        'clickable-card text-center border' +
-        (selectedWeatherDate === dateString
-          ? ' border-1 border-danger'
-          : ' border border-primary')
-      }
+      className={`clickable text-center border ${BORDER_COLOR}`}
     >
       <Card.Header>
         <h3>
@@ -38,7 +35,7 @@ const WeatherCard = ({ weather }) => {
       </Card.Body>
 
       <Card.Footer>
-        <img src={icon} />
+        <img src={icon} alt='Weather Condition Icon' />
       </Card.Footer>
     </Card>
   );

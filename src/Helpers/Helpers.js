@@ -105,15 +105,33 @@ export const formatCitiesAndCountries = (citiesAndCountries) =>
     addCountryToCities(cityAndCountry.cities, cityAndCountry.country)
   );
 
-// export const getAstroDetails = (weather) => {
-//   return {
-//     astro: {
-//       sunrise: '06:34 AM',
-//       sunset: '06:25 PM',
-//       moonrise: '12:14 PM',
-//       moonset: '10:10 PM',
-//       moon_phase: 'Waxing Crescent',
-//       moon_illumination: '36',
-//     },
-//   };
-// };
+export const getDateFromTimeString = (date, time) =>
+  new Date(`${date} ${time}`);
+
+export const getRiseAndSetDetails = (weather, isSun = true) => {
+  if (isEmpty(weather)) return;
+
+  const rise = isSun ? weather.astro.sunrise : weather.astro.moonrise;
+  const set = isSun ? weather.astro.sunset : weather.astro.moonset;
+
+  return [
+    {
+      detail: getTime(getDateFromTimeString(weather.date, rise)),
+      text: 'זריחה',
+    },
+    {
+      detail: getTime(getDateFromTimeString(weather.date, set)),
+      text: 'שקיעה',
+    },
+  ];
+};
+
+export const getAstroDetails = (weather) => {
+  if (isEmpty(weather)) return;
+
+  return {
+    sun: getRiseAndSetDetails(weather),
+    moon: getRiseAndSetDetails(weather, false),
+    date: getDateString(new Date(weather.date)),
+  };
+};
