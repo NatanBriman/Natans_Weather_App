@@ -17,7 +17,7 @@ const getForecast = async (city, days) => {
       data: {
         forecast: { forecastday },
       },
-    } = await api.forecastInCityForDays(city, days);
+    } = await api.getForecastInCityForDays(city, days);
 
     return forecastday;
   } catch (error) {
